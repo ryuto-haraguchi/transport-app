@@ -1,0 +1,17 @@
+FROM node:20-alpine
+
+WORKDIR /usr/src/app
+
+# 開発用の設定
+ENV NODE_ENV=development
+ENV PORT=4005
+
+# パッケージのインストール
+COPY package*.json ./
+RUN npm install
+
+# ホットリロード用の設定
+EXPOSE 4005
+
+# 開発サーバーを起動
+CMD ["npm", "run", "dev"] 
