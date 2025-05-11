@@ -12,7 +12,6 @@ services:
         source: ./
         target: /usr/src/app
         consistency: cached
-      - /usr/src/app/node_modules
     environment:
       - NODE_ENV=development
       - DATABASE_URL=postgresql://postgres:postgres@db:5433/transport_app
