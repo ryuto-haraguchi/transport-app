@@ -14,7 +14,7 @@ services:
         consistency: cached
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=postgresql://postgres:postgres@db:5433/transport_app
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/transport_app
     depends_on:
       - db
 
