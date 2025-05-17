@@ -122,3 +122,9 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .page-title {
+    @apply text-2xl font-bold mb-4;
+  }
+}

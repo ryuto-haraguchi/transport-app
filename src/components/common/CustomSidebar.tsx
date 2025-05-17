@@ -53,6 +53,11 @@ export default function CustomSidebar() {
       icon: HomeIcon,
     },
     {
+      label: "Admin",
+      href: "/admin",
+      icon: UserIcon,
+    },
+    {
       label: "Settings",
       icon: SettingsIcon,
       subItems: [

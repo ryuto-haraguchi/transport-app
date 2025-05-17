@@ -1,35 +1,47 @@
 "use client";
-
-import User from "@/types/user";
 import { useEffect, useState } from "react";
+import User from "@/types/user";
 
-const UserList = () => {
-  const GET_USERS = "api/users";
+const GET_USERS = "/api/users"; 
+
+export default function UserList() {
   const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await fetch(GET_USERS, {
-        cache: "no-store",
-      });
-      const data = await response.json();
-      setUsers(data);
-      console.log(data);
+      try {
+        const response = await fetch(GET_USERS, { cache: "no-store" });
+        const data = await response.json();
+        setUsers(data);
+      } catch (error) {
+        console.error("Failed to fetch users:", error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchUsers();
   }, []);
 
+  if (loading) {
+    return <p className="text-center p-4">データを取得中です...</p>;
+  }
+
+  if (users.length === 0) {
+    return <p className="text-center p-4">表示するユーザーがいません。</p>;
+  }
+
   return (
-    <ul className="bg-gray-400 p-2 rounded-md w-1/2">
+    <ul>
       {users.map((user) => (
-        <li key={user.id}>
-          <p>{user.id} - {user.name}</p>
+        <li key={user.id} className="bg-gray-600 p-2 mb-2 rounded-md w-[200px] text-white">
+          <p>
+            {user.id} - {user.name}
+          </p>
           <p>{user.email}</p>
           <p>{user.phone_number}</p>
         </li>
       ))}
     </ul>
   );
-};
-
-export default UserList;
+}

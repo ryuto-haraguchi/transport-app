@@ -19,4 +19,6 @@ model User {
   email String  @unique
   name  String
   phone_number String 
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
