@@ -4,7 +4,11 @@ import prisma from "@/lib/prisma";
 // クエリパラメーターを受け取る時は_requestを使う
 export const GET = async (_request: NextRequest) => {
   try {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({
+      orderBy: {
+        name: "asc",
+      },
+    });
     return NextResponse.json(users, { status: 200 });
   } catch (error) {
     console.error("API Error (GET /api/users):", error);
@@ -45,6 +49,39 @@ export const POST = async (request: NextRequest) => {
     // その他のエラー
     return NextResponse.json(
       { message: "ユーザー作成中に予期せぬエラーが発生しました。" },
+      { status: 500 }
+    );
+  }
+};
+
+export const PATCH = async (request: NextRequest) => {
+  try {
+    const { id, name, email, phone_number } = await request.json();
+    const user = await prisma.user.update({
+      where: { id },
+      data: { name, email, phone_number },
+    });
+    return NextResponse.json(user, { status: 200 });
+  } catch (error) {
+    console.error("API Error (PATCH /api/users):", error);
+    return NextResponse.json(
+      { message: "ユーザーの更新に失敗しました。" },
+      { status: 500 }
+    );
+  }
+};
+
+export const DELETE = async (request: NextRequest) => {
+  try {
+    const { id } = await request.json();
+    await prisma.user.delete({
+      where: { id },
+    });
+    return NextResponse.json({ message: "ユーザーを削除しました。" }, { status: 200 });
+  } catch (error) {
+    console.error("API Error (DELETE /api/users):", error);
+    return NextResponse.json(
+      { message: "ユーザーの削除に失敗しました。" },
       { status: 500 }
     );
   }
