@@ -29,14 +29,12 @@ export const POST = async (request: NextRequest) => {
       error.code === "P2002" &&
       error.meta?.target
     ) {
-      console.log(error);
-      const target = error.meta.target; // metaとtargetの存在は上でチェック済み
+      const target = error.meta.target;
       const fields = Array.isArray(target) ? target : undefined;
       let friendlyMessage = "指定された情報が既に使用されています。";
 
       if (fields && fields.includes("email")) {
         friendlyMessage = "このメールアドレスは既に使用されています。";
-         friendlyMessage = "この電話番号は既に使用されています。";
       } else if (fields) {
         friendlyMessage = `「${fields.join(
           ", "

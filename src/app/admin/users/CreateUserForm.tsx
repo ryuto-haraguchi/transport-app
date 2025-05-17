@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CreateUserFormSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
@@ -23,15 +23,23 @@ const CreateUserFormSchema = z.object({
 
 export const CreateUserForm = () => {
   const [formError, setFormError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const form = useForm<z.infer<typeof CreateUserFormSchema>>({
     resolver: zodResolver(CreateUserFormSchema),
     defaultValues: { name: "", email: "", phone_number: "" },
   });
 
+  useEffect(() => {
+    if (successMessage) {
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 5000);
+    }
+  }, [successMessage]);
+
   const createUser = async (data: z.infer<typeof CreateUserFormSchema>) => {
     setFormError(null);
     form.clearErrors("email");
-    form.clearErrors("phone_number");
 
     try {
       const response = await fetch("/api/users", {
@@ -48,19 +56,13 @@ export const CreateUserForm = () => {
 
         if (errorMessage.includes("メールアドレス")) {
           form.setError("email", { type: "server", message: errorMessage });
-        } else if (errorMessage.includes("電話番号")) {
-          form.setError("phone_number", {
-            type: "server",
-            message: errorMessage,
-          });
         }
+
         return;
       }
 
-      const successData = await response.json();
-      console.log("User created successfully!", successData);
+      setSuccessMessage("Created successfully!");
       form.reset();
-      alert("ユーザーが正常に作成されました。");
     } catch (error) {
       console.error("An unexpected error occurred:", error);
       setFormError("予期せぬエラーが発生しました。もう一度お試しください。");
@@ -69,6 +71,11 @@ export const CreateUserForm = () => {
 
   return (
     <Form {...form}>
+      {successMessage && (
+        <h3 className="text-green-600 text-lg font-bold mb-4">
+          {successMessage}
+        </h3>
+      )}
       <form onSubmit={form.handleSubmit(createUser)} className="space-y-8">
         <FormField
           control={form.control}
@@ -103,7 +110,7 @@ export const CreateUserForm = () => {
             <FormItem>
               <FormLabel>Phone Number</FormLabel>
               <FormControl>
-                <Input placeholder="1234567890" {...field} />
+                <Input placeholder="080-1234-5678" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

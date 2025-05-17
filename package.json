@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "docker:up": "docker-compose up",
+    "docker:down": "docker-compose down",
     "docker:bash": "docker-compose exec app bash"
   },
   "dependencies": {

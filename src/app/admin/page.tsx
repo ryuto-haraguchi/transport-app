@@ -7,7 +7,9 @@ export default function AdminPage() {
     <AdminLayout>
       <div>
         <h1 className="page-title">Admin Page</h1>
-        <CustomButton href={URL}>Create User</CustomButton>
+        <CustomButton className="bg-gray-600" href={URL}>
+          Create User
+        </CustomButton>
       </div>
     </AdminLayout>
   );
