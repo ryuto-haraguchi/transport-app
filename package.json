@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "docker:up": "docker-compose up",
+    "docker:restart": "docker-compose down && docker-compose up",
     "docker:down": "docker-compose down",
     "docker:bash": "docker-compose exec app bash"
   },
@@ -26,6 +27,7 @@
     "clsx": "^2.1.1",
     "lucide-react": "^0.509.0",
     "next": "15.3.2",
+    "next-auth": "^5.0.0-beta.28",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.3",
