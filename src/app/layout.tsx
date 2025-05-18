@@ -26,6 +26,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   const session = await auth();
 
   return (
@@ -33,13 +34,13 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SessionProvider>
+        <SessionProvider session={session}>
           {session ? (
           <SidebarProvider>
             <CustomSidebar />
             <SidebarTrigger />
-            {children}
-          </SidebarProvider>
+              {children}
+            </SidebarProvider>
           ) : (
             <>{children}</>
           )}
