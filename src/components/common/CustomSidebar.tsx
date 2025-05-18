@@ -30,7 +30,9 @@ import {
   BarChartIcon,
   HelpCircleIcon,
   FileTextIcon,
+  LogOutIcon,
 } from "lucide-react";
+import { signOut } from "next-auth/react";
 
 interface MenuItem {
   label: string;
@@ -86,6 +88,10 @@ export default function CustomSidebar() {
         },
       ],
     },
+    {
+      label: "Logout",
+      icon: LogOutIcon,
+    },
   ];
 
   return (
@@ -138,6 +144,23 @@ export default function CustomSidebar() {
                       </CollapsibleContent>
                     </SidebarMenuItem>
                   </Collapsible>
+                ) : item.label === "Logout" ? (
+                  <SidebarMenuItem key={item.label}>
+                    <SidebarMenuButton
+                      onClick={() => signOut({ callbackUrl: "/" })}
+                      className="group flex w-full items-center justify-between"
+                    >
+                      <span className="flex items-center">
+                        {item.icon ? (
+                          <item.icon className="mr-2 h-4 w-4 flex-shrink-0" />
+                        ) : (
+                          <div className="mr-2 h-4 w-4 flex-shrink-0" />
+                        )}
+                        {item.label}
+                      </span>
+                      <div className="h-4 w-4 shrink-0" />
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
                 ) : (
                   <SidebarMenuItem key={item.label}>
                     <SidebarMenuButton asChild>
