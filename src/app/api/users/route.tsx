@@ -6,7 +6,7 @@ export const GET = async (_request: NextRequest) => {
   try {
     const users = await prisma.user.findMany({
       orderBy: {
-        name: "asc",
+        id: "asc",
       },
     });
     return NextResponse.json(users, { status: 200 });

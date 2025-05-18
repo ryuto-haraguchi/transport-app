@@ -34,11 +34,11 @@ export default function UserDrawer({
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger asChild onClick={() => setIsOpen(true)}>
-        <Button className="bg-gray-600 text-white w-full">
+        <Button className="bg-gray-600 text-white w-full h-full cursor-pointer">
           {trigger || "Open Drawer"}
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="w-full md:w-1/2 mx-auto">
         <DrawerHeader>
           <DrawerTitle className="text-2xl font-bold">{title}</DrawerTitle>
           <DrawerDescription className="">{description}</DrawerDescription>
