@@ -120,11 +120,47 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.AccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  provider: 'provider',
+  providerAccountId: 'providerAccountId',
+  refresh_token: 'refresh_token',
+  access_token: 'access_token',
+  expires_at: 'expires_at',
+  token_type: 'token_type',
+  scope: 'scope',
+  id_token: 'id_token',
+  session_state: 'session_state',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  sessionToken: 'sessionToken',
+  userId: 'userId',
+  expires: 'expires',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
-  email: 'email',
   name: 'name',
-  phone_number: 'phone_number',
+  email: 'email',
+  emailVerified: 'emailVerified',
+  image: 'image',
+  phoneNumber: 'phoneNumber',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.VerificationTokenScalarFieldEnum = {
+  identifier: 'identifier',
+  token: 'token',
+  expires: 'expires',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -139,9 +175,17 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  Account: 'Account',
+  Session: 'Session',
+  User: 'User',
+  VerificationToken: 'VerificationToken'
 };
 
 /**

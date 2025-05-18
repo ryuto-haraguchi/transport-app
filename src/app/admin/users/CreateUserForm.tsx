@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 const CreateUserFormSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().email({ message: "Invalid email address" }),
-  phone_number: z.string().min(1, { message: "Phone number is required" }),
+  phoneNumber: z.string().min(1, { message: "Phone number is required" }),
 });
 
 export const CreateUserForm = () => {
@@ -26,7 +26,7 @@ export const CreateUserForm = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const form = useForm<z.infer<typeof CreateUserFormSchema>>({
     resolver: zodResolver(CreateUserFormSchema),
-    defaultValues: { name: "", email: "", phone_number: "" },
+    defaultValues: { name: "", email: "", phoneNumber: "" },
   });
 
   useEffect(() => {
@@ -105,7 +105,7 @@ export const CreateUserForm = () => {
         />
         <FormField
           control={form.control}
-          name="phone_number"
+          name="phoneNumber"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Phone Number</FormLabel>
@@ -118,7 +118,7 @@ export const CreateUserForm = () => {
         />
         {formError &&
           !form.getFieldState("email").error &&
-          !form.getFieldState("phone_number").error && (
+          !form.getFieldState("phoneNumber").error && (
             <p
               className={`text-sm font-medium ${
                 formError.includes("成功")

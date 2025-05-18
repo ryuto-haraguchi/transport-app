@@ -13,6 +13,7 @@
     "docker:bash": "docker-compose exec app bash"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.9.1",
     "@hookform/resolvers": "^5.0.1",
     "@prisma/client": "^6.8.2",
     "@radix-ui/react-collapsible": "^1.1.10",

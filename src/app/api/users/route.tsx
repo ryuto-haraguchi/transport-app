@@ -21,9 +21,9 @@ export const GET = async (_request: NextRequest) => {
 
 export const POST = async (request: NextRequest) => {
   try {
-    const { name, email, phone_number } = await request.json();
+    const { name, email, phoneNumber } = await request.json();
     const user = await prisma.user.create({
-      data: { name, email, phone_number },
+      data: { name, email, phoneNumber },
     });
     return NextResponse.json(user, { status: 201 });
   } catch (error: any) {
@@ -56,10 +56,10 @@ export const POST = async (request: NextRequest) => {
 
 export const PATCH = async (request: NextRequest) => {
   try {
-    const { id, name, email, phone_number } = await request.json();
+    const { id, name, email, phoneNumber } = await request.json();
     const user = await prisma.user.update({
       where: { id },
-      data: { name, email, phone_number },
+      data: { name, email, phoneNumber },
     });
     return NextResponse.json(user, { status: 200 });
   } catch (error) {

@@ -19,7 +19,7 @@ import { useState } from "react";
 const EditUserFormSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
   email: z.string().email({ message: "Invalid email address" }),
-  phone_number: z.string().min(1, { message: "Phone number is required" }),
+  phoneNumber: z.string().min(1, { message: "Phone number is required" }),
 });
 
 const USER_EDIT_API_URL = "/api/users";
@@ -37,7 +37,7 @@ const EditUserForm = ({ user, onSubmitSuccess }: EditUserFormProps) => {
     defaultValues: {
       name: user.name,
       email: user.email,
-      phone_number: user.phone_number,
+      phoneNumber: user.phoneNumber || "",
     },
   });
 
@@ -101,7 +101,7 @@ const EditUserForm = ({ user, onSubmitSuccess }: EditUserFormProps) => {
         />
         <FormField
           control={form.control}
-          name="phone_number"
+          name="phoneNumber"
           render={({ field }) => (
             <FormItem>
               <FormLabel>電話番号</FormLabel>

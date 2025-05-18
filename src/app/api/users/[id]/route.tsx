@@ -15,19 +15,11 @@ export const PATCH = async (
       );
     }
 
-    const { name, email, phone_number } = await request.json();
-
-    const numericId = parseInt(id, 10);
-    if (isNaN(numericId)) {
-      return NextResponse.json(
-        { message: "Invalid user ID format" },
-        { status: 400 }
-      );
-    }
+    const { name, email, phoneNumber } = await request.json();
 
     const updatedUser = await prisma.user.update({
-      where: { id: numericId },
-      data: { name, email, phone_number },
+      where: { id: id },
+      data: { name, email, phoneNumber },
     });
 
     if (!updatedUser) {
@@ -72,11 +64,10 @@ export const PATCH = async (
 
 export const DELETE = async (
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) => {
+  const id = (await params).id;
   try {
-    const id = params.id;
-
     if (!id) {
       return NextResponse.json(
         { message: "User ID not found in request parameters" },
@@ -84,17 +75,8 @@ export const DELETE = async (
       );
     }
 
-    const numericId = parseInt(id, 10);
-
-    if (isNaN(numericId)) {
-      return NextResponse.json(
-        { message: "Invalid user ID format" },
-        { status: 400 }
-      );
-    }
-
     await prisma.user.delete({
-      where: { id: numericId },
+      where: { id },
     });
     return NextResponse.json(
       { message: "ユーザーを削除しました。" },
