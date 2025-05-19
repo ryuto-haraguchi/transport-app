@@ -33,14 +33,14 @@ import {
   LogOutIcon,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
-
 interface MenuItem {
   label: string;
   href?: string;
   icon?: React.ElementType;
   subItems?: SubMenuItem[];
-}
-
+};
+import { useSession } from "next-auth/react";
+import AccountInfo from "@/components/common/AccountInfo";
 interface SubMenuItem {
   label: string;
   href: string;
@@ -48,6 +48,7 @@ interface SubMenuItem {
 }
 
 export default function CustomSidebar() {
+  const { data: session } = useSession();
   const menuItems: MenuItem[] = [
     {
       label: "Dashboard",
@@ -187,9 +188,11 @@ export default function CustomSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <p className="p-3 text-xs text-muted-foreground">
+        {/* ここにアカウントのロゴ、ユーザー名、メールアドレスを表示→コンポーネントに切り出す*/}
+        <AccountInfo user={session?.user}/>
+        {/* <p className="p-3 text-xs text-muted-foreground">
           © {new Date().getFullYear()} Transport App
-        </p>
+        </p> */}
       </SidebarFooter>
     </Sidebar>
   );
