@@ -5,12 +5,12 @@ export const config = {
 };
 
 export default auth((req) => {
-  const isLoginPage = req.nextUrl.pathname === "/login";
-  const isSignupPage = req.nextUrl.pathname === "/signup";
+  const isLoginPage = req.nextUrl.pathname === "/auth/login";
+  const isSignupPage = req.nextUrl.pathname === "/auth/signup";
   const isAuthenticated = !!req.auth;
 
   if (!isAuthenticated && !isLoginPage && !isSignupPage) {
-    return Response.redirect(new URL("/login", req.nextUrl.origin));
+    return Response.redirect(new URL("/auth/login", req.nextUrl.origin));
   }
 
   if (isAuthenticated && isLoginPage) {

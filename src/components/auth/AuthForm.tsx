@@ -1,18 +1,31 @@
 "use client";
+
+import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import Image from "next/image";
 
-export default function Login() {
+// interface AuthFormProps {
+//   error?: string;
+//   formType: "login" | "error";
+// }
+
+export default function AuthForm() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md flex flex-col items-center">
         <div className="mb-8 flex flex-col items-center">
           <div className="mb-6">
-            <Image src="/images/track.jpeg" alt="logo" width={100} height={100} className="rounded-full" />
+            <Image
+              src="/images/track.jpeg"
+              alt="logo"
+              width={100}
+              height={100}
+              className="rounded-full"
+            />
           </div>
+          {/* タイトルはprops経由で変更できるようにするとより汎用的になります */}
           <h1 className="text-2xl font-bold mb-2">Welcome back</h1>
         </div>
         <form className="w-full flex flex-col gap-4 mb-4">
@@ -39,7 +52,7 @@ export default function Login() {
         <div className="w-full flex flex-col gap-2 mb-6">
           <Button
             type="button"
-            onClick={() => signIn("google")}
+            onClick={() => signIn("google", { callbackUrl: "/" })} // callbackUrlもpropsで渡せると良い
             variant="outline"
             className="w-full flex items-center justify-center"
           >
